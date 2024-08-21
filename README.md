@@ -57,8 +57,7 @@ Before running the project, you need to configure the `appsettings.json` file wi
     "AppPassword": "your_app_password"
   }
 }
-
-
+```
 
 
 ### 2. **Generate an App Password
