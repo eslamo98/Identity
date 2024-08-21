@@ -57,6 +57,10 @@ Before running the project, you need to configure the `appsettings.json` file wi
     "AppPassword": "your_app_password"
   }
 }
+
+
+
+
 ### 2. Generate an App Password
 
 If you are using Gmail or any other email provider with two-factor authentication (2FA), you'll need to generate an app password to send emails through the application.
