@@ -57,22 +57,20 @@ Before running the project, you need to configure the `appsettings.json` file wi
     "AppPassword": "your_app_password"
   }
 }
-###2. **Generate an App Password
+### 2. Generate an App Password
+
 If you are using Gmail or any other email provider with two-factor authentication (2FA), you'll need to generate an app password to send emails through the application.
 
-To generate an app password in Gmail:
+**To generate an app password in Gmail:**
 
-1-Go to your Google Account.
-2-Navigate to Security.
-3-Under Signing in to Google, select App passwords. (You might need to sign in again.)
-4-Select Select app and choose Other (Custom name).
-5-Enter a name (e.g., "Identity Project") and click Generate.
-6-Copy the generated app password and paste it into the AppPassword field in appsettings.json.
+1. Go to your Google Account.
+2. Navigate to `Security`.
+3. Under `Signing in to Google`, select `App passwords`. (You might need to sign in again.)
+4. Select `Select app` and choose `Other (Custom name)`.
+5. Enter a name (e.g., "Identity Project") and click `Generate`.
+6. Copy the generated app password and paste it into the `AppPassword` field in `appsettings.json`.
 
-###3. **Update the Database
-Once appsettings.json is configured, you need to create the database by running the following command in the Package Manager Console in Visual Studio: update-database
-
-
+### 3. Update the Database
 
 ### Summary:
 
