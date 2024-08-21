@@ -32,11 +32,12 @@ Before running the project, you need to configure the `appsettings.json` file wi
 #### **`appsettings.json` fields to configure:**
 
 - **Email Settings:**
-  - `Smtp:Host`: The SMTP server to use for sending emails (e.g., `smtp.gmail.com`).
-  - `Smtp:Port`: The SMTP port (e.g., `587` for TLS or `465` for SSL).
-  - `Smtp:SenderEmail`: The email address from which the application will send emails.
-  - `Smtp:SenderName`: The name that will appear in the "From" field of the emails.
-  - `Smtp:AppPassword`: An application-specific password for the sender's email account.
+"EmailSettings": {
+    "FromEmail": "your email",
+    "FromPassword": "your app password",//App password
+    "SmtpHost": "smtp.gmail.com",
+    "SmtpPort": 587
+  },
 
 - **SQL Server Connection String:**
   - `ConnectionStrings:DefaultConnection`: The connection string for the SQL Server database. Update the `User ID` and `Password` fields with your SQL Server credentials.
