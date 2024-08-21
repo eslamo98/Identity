@@ -1,0 +1,163 @@
+﻿@model EditUserViewModel
+
+@{
+    ViewData["Title"] = "Edit User";
+}
+
+<div class="container mt-5">
+    <h2 class="mb-4">@ViewData["Title"]</h2>
+    <form asp-action="Edit" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+        <div asp-validation-summary="All" class="alert alert-danger mb-3" role="alert"></div>
+        <input type="hidden" asp-for="Id" />
+
+        <!-- User Information Section -->
+        <div class="row g-3">
+            <div class="col-md-6">
+                <div class="form-floating">
+                    <input asp-for="UserName" class="form-control" autocomplete="off" placeholder="UserName" required />
+                    <label asp-for="UserName">User Name</label>
+                    <div class="invalid-feedback">
+                        Please provide a valid user name.
+                    </div>
+                    <span asp-validation-for="UserName" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-floating">
+                    <input asp-for="FirstName" class="form-control" autocomplete="off" placeholder="First Name" required />
+                    <label asp-for="FirstName">First Name</label>
+                    <div class="invalid-feedback">
+                        Please provide a first name.
+                    </div>
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-floating">
+                    <input asp-for="LastName" class="form-control" autocomplete="off" placeholder="Last Name" required />
+                    <label asp-for="LastName">Last Name</label>
+                    <div class="invalid-feedback">
+                        Please provide a last name.
+                    </div>
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-floating">
+                    <input asp-for="Email" class="form-control" autocomplete="username" placeholder="Email" required />
+                    <label asp-for="Email">Email</label>
+                    <div class="invalid-feedback">
+                        Please provide a valid email address.
+                    </div>
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-floating">
+                    <input asp-for="Password" class="form-control" autocomplete="new-password" type="password" placeholder="Password" />
+                    <label asp-for="Password">Password</label>
+                    <div class="invalid-feedback">
+                        Please provide a password if you want to change it.
+                    </div>
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-floating">
+                    <input asp-for="ConfirmPassword" class="form-control" autocomplete="new-password" type="password" placeholder="Confirm Password" />
+                    <label asp-for="ConfirmPassword">Confirm Password</label>
+                    <div class="invalid-feedback">
+                        Please confirm the new password.
+                    </div>
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Profile Picture Section -->
+        <div class="mb-4 mt-4">
+            <label asp-for="ProfilePic" class="form-label">Profile Picture</label>
+            <div class="d-flex align-items-center">
+                @if (Model.ProfilePic != null)
+                {
+                    <img src="data:image/*;base64,@(Convert.ToBase64String(Model.ProfilePic))" id="ProfilePic" alt="Profile Picture" class="rounded-circle me-3" style="width: 100px; height: 100px; object-fit: cover;" />
+                }
+                else
+                {
+                    <img src="~/Images/avatar.jpg" id="ProfilePic" alt="Profile Picture" class="rounded-circle me-3" style="width: 100px; height: 100px; object-fit: cover;" />
+                }
+                <input asp-for="ProfilePic" class="form-control form-control-sm" type="file" accept="image/*" id="formFile" onchange="previewImage(event)">
+                <span asp-validation-for="ProfilePic" class="text-danger"></span>
+            </div>
+        </div>
+
+        <!-- Roles Section -->
+        <div class="card mt-4">
+            <div class="card-header">
+                <h5 class="card-title">Assign Roles</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    @for (int i = 0; i < Model.Roles.Count; i++)
+                    {
+                        <div class="col-md-4">
+                            <div class="form-check">
+                                <input type="hidden" asp-for="@Model.Roles[i].Name" />
+                                <input type="hidden" asp-for="@Model.Roles[i].Id" />
+                                <input type="checkbox" asp-for="@Model.Roles[i].IsSelected" class="form-check-input" id="role_@Model.Roles[i].Id" />
+                                <label class="form-check-label" for="role_@Model.Roles[i].Id">@Model.Roles[i].Name</label>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Submit and Cancel Buttons -->
+        <div class="d-flex justify-content-between mt-4">
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+
+<script>
+    function previewImage(event) {
+        var reader = new FileReader();
+        reader.onload = function () {
+            var output = document.getElementById('ProfilePic');
+            output.src = reader.result;
+            output.style.display = 'block';
+            console.log(reader.result);
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    }
+
+    // Enable Bootstrap validation styling
+    (function () {
+        'use strict';
+        var forms = document.querySelectorAll('.needs-validation');
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+    })();
+</script>
+
+<!-- Include the notification -->
+<partial name="_Notification" />
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
